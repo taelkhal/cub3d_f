@@ -6,22 +6,11 @@
 /*   By: taelkhal <taelkhal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/07 01:07:53 by taelkhal          #+#    #+#             */
-/*   Updated: 2023/12/07 01:07:53 by taelkhal         ###   ########.fr       */
+/*   Updated: 2023/12/31 15:53:34 by taelkhal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3D.h"
-
-// t_map *init_map(char *path)
-// {
-//     t_map *map;
-
-//     map = malloc(sizeof(t_map));
-//     map->map = read_map(path);
-//     map->width = lenth_width_map(map->map) - 1; // x hia l3ard
-//     map->height = lenth_height_map(map->map); // y hia toll
-//     return (map);
-// }
 
 t_player *init_player(t_game *game)
 {
@@ -38,16 +27,9 @@ t_player *init_player(t_game *game)
 
 t_castrays *init_castrays(t_castrays *castrays)
 {
-    castrays->r = 0;
-    castrays->mx = 0;
-    castrays->my = 0;
-    castrays->mp = 0;
-    castrays->dof = 0;
     castrays->rx = 0;
     castrays->ry = 0;
     castrays->ra = 0;
-    castrays->xo = 0;
-    castrays->yo = 0;
     return (castrays);
 }
 

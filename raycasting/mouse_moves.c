@@ -32,7 +32,6 @@ void rotateright(t_game *game)
 
 int mouse_hook(int x, int y, t_game *game)
 {
-    // mlx_mouse_get_pos(game->mlx,game->win, &x, &y);
     if ((x > 0 && x < WIN_W) && (y > 0 && y < WIN_H))
 	{
         if (game->mouse < x)
@@ -41,6 +40,5 @@ int mouse_hook(int x, int y, t_game *game)
             rotateleft(game);
         game->mouse = x;
     }
-    // mlx_mouse_hook(game->win, mouse_hook, game);
     return (0);
 }

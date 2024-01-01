@@ -1,6 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   cub3D.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: taelkhal <taelkhal@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/23 12:47:47 by amakhrou          #+#    #+#             */
+/*   Updated: 2024/01/01 15:59:18 by taelkhal         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef CUB3D_H
 # define CUB3D_H
-
 
 # include <string.h>
 # include <stdio.h>
@@ -8,10 +19,10 @@
 # include <unistd.h>
 # include <fcntl.h>
 # include <math.h>
-# include "../cub3D/minilibx-linux/mlx.h"
-# include "../cub3D/get_next_line/get_next_line.h"
+# include <mlx.h>
+# include "../parse/get_next_line/get_next_line.h"
 #define pi 3.1415926535
-# define P_SPEED 5
+# define P_SPEED 10
 
 # define WIN_W  1400
 # define WIN_H  800
@@ -34,24 +45,14 @@ typedef struct parse
 	size_t  line_size;
     int F_RGB;
     int C_RGB;
-    // char **mapholder;
-
+    char **map_holder;
 }   t_parse;
 
 
 typedef struct s_map
 {
-    int width;
-    int height;
     char **map;
 }           t_map;
-
-// typedef struct s_map
-// {
-//     int width;
-//     int height;
-//     char **map;
-// }           t_map;
 
 typedef struct s_player
 {
@@ -64,16 +65,9 @@ typedef struct s_player
 
 typedef struct s_castrays
 {
-    int r;
-    int mx;
-    int my;
-    int mp;
-    int dof;
     float rx;
     float ry;
     float ra;
-    float xo;
-    float yo;
 }t_castrays;
 
 typedef struct s_game
@@ -81,16 +75,13 @@ typedef struct s_game
     void *mlx;
     void *win;
     void *img;
-    void *img_minimap;
     char *addr;
-    char *addr_minimap;
-    int i2;
+    int r;
     int    *bits_per_pixel;
     int   *line_length;
 	int		*endian;
     int player_size;
     int size_px_map;
-    int mouse;//bonus
     void	*no_tex;
 	char	*no_texadr;
 	int		n_w;
@@ -107,6 +98,13 @@ typedef struct s_game
 	char	*ea_texadr;
 	int		e_w;
 	int		e_h;
+    int mouse;
+    int walk_left;
+    int walk_right;
+    int walk_up;
+    int walk_down;
+    int turn_left;
+    int turn_right;
     t_parse *parse;
     t_map *map;
     t_player *player;
@@ -127,7 +125,7 @@ char	*check_texture_existence(char *path);
 void    check_p(char **map);
 void	check_x(char **map);
 char	*check_texture_existence(char *path);
-char    **reads(t_parse *parse, int fd, int count);
+void    reads(t_parse *parse, int fd, int count);
 t_map *init_map(char *path,t_parse *parse);
 void init_parse(t_parse *parse);
 int map_check(char **map, t_parse *parse);
@@ -149,30 +147,42 @@ void init_game(t_game *game, char *av);
 
 void    ft_putstr(char *str, int fd);
 char    **ft_split(char const *s, char c);
-// char *ft_strdup(const char *s1);
 int ft_strcmp(const char *s1, const char *s2);
-// size_t	ft_strlen(const char *str);
-// char	*ft_strjoin(char *s1, char *s2);
 
 char **read_map(char *path);
-int lenth_width_map(char **map);
-int lenth_height_map(char **map);
+// int lenth_width_map(char **map);
+// int lenth_height_map(char **map);
 void draw_map(t_game *game);
 void draw_player(t_game *game, int x, int y);
-// int get_x_player(t_map *map);
 int get_x_player(t_game *game);
-// int get_y_player(t_map *map);
 int get_y_player(t_game *game);
 void draw_thick_line(t_game *game, int x1, int y1, int x2, int y2, int color);
 void	my_mlx_pixel_put(t_game *data, int x, int y, int color);
+
+// keys
+
+int key_release(int key, t_game *game);
+int key_press(int key, t_game *game);
 //raycasting
 void castoneray(t_game *game);
 float degtorad(float angle);
 void get_angle(t_game *game);
-// void convert_3d(t_game *game, int x ,int y, int check);
 void convert_3d(t_game *game, int check);
 
-float fixang(float ang);
+//moves
+void	turn_left(t_game *game);
+void	turn_right(t_game *game);
+int	move_up(t_game *game, int check);
+int	move_down(t_game *game, int check);
+void	move_right(t_game *game);
+void	move_left(t_game *game);
+
+float	calcul_dist(float ax, float ay, float bx, float by);
+float fix_p_ang(float ang);
+void	draw_tex(t_game *game, float y1, float line, float x);
+void	draw_tex2(t_game *game, float y1, float lineho, float x);
+void	draw_ceilling(t_game *game, float top_px);
+void	draw_floor(t_game *game, float lineh, float bottom_px);
 //bonus
 // int mouse_hook(t_game *game, int x, int y);
 int mouse_hook(int x, int y, t_game *game);
