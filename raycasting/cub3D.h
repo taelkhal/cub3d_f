@@ -6,7 +6,7 @@
 /*   By: taelkhal <taelkhal@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 12:47:47 by amakhrou          #+#    #+#             */
-/*   Updated: 2024/01/01 15:59:18 by taelkhal         ###   ########.fr       */
+/*   Updated: 2024/01/01 18:21:20 by taelkhal         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,11 @@
 # include <math.h>
 # include <mlx.h>
 # include "../parse/get_next_line/get_next_line.h"
-#define pi 3.1415926535
-# define P_SPEED 10
+# define pi 3.1415926535
+# define P_SPEED 12
 
-# define WIN_W  1400
-# define WIN_H  800
+# define WIN_W  1080
+# define WIN_H  720
 # define RED    "\033[1m\033[31m"
 # define GREEN    "\033[1m\033[32m"
 # define YELLOW    "\033[1m\033[33m"

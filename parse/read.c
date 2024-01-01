@@ -110,29 +110,25 @@ void	reads(t_parse *parse, int fd, int count)
 	char	*line;
 	char	*map;
 
+	line = NULL;
 	map = ft_strdup("");
 	while (1)
 	{
+		if (line)
+			free(line);
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		if (line)
-		{
-			printf ("line = %s\n", line);
-			free(line);
-		}
 		if (line_is_empty(line) && count == 6)
 			continue ;
 		if (count >= 6)
 		{
-			if (line_is_empty_in(line))
-				error_empty_line();
+			line_is_empty_in(line);
 			map = ft_strjoin(map, line);
 			count++;
 		}
 		else if (!line_is_empty(line))
 			count += check_lines(line, parse);
-		free(line);
 	}
 	parse->map_holder = ft_split(map, '\n');
 	free(map);

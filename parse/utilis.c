@@ -47,6 +47,7 @@ int	line_is_empty_in(char *str)
 			return (0);
 		i++;
 	}
+	error_empty_line();
 	return (1);
 }
 
